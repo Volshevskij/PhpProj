@@ -33,29 +33,22 @@ class Tournament {
         return $this;
     }
 
-    public function __construct() {
-        $arguments = func_get_args();
-        $numberOfArguments = func_num_args();
-  
-        if (method_exists($this, $function = 
-                'ConstructorWithArgument'.$numberOfArguments)) {
-            call_user_func_array(
-                        array($this, $function), $arguments);
+    public function __construct($name, $date = null) {
+
+        if($name != null && $date == null)
+        {
+            $this->name = $name;
+            $this->tournamentDate = date("Y-m-d", strtotime("+1 day"));
+            $this->players = [];
         }
 
-    }
-
-    public function ConstructorWithArgument1($name) {
-        $this->name = $name;
-        $this->tournamentDate = date("Y-m-d", strtotime("+1 day"));
-        $this->players = [];
-    }
-      
-    public function ConstructorWithArgument2($name, $date) {
-        $this->name = $name;
-        $strToDate = str_replace(".","-",$date);
-        $this->tournamentDate = date('Y-m-d', strtotime($strToDate));
-        $this->players = [];
+        if($name != null && $date != null)
+        {
+            $this->name = $name;
+            $strToDate = str_replace(".","-",$date);
+            $this->tournamentDate = date('Y-m-d', strtotime($strToDate));
+            $this->players = [];
+        }
     }
 
     public function addPlayer($player) {
